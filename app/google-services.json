@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "116283838274",
+    "firebase_url": "https://mobile-gamefowl-record.firebaseio.com",
+    "project_id": "mobile-gamefowl-record",
+    "storage_bucket": "mobile-gamefowl-record.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116283838274:android:81f316f957ae01e1",
+        "android_client_info": {
+          "package_name": "mybreed.andrewlaurien.com.gamecocksheet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116283838274-6grquv20as4m6cu6s9uptn9i7ek8v5mr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mybreed.andrewlaurien.com.gamecocksheet",
+            "certificate_hash": "731a8b15678f21da570bac4e80de9839bd2327bb"
+          }
+        },
+        {
+          "client_id": "116283838274-omvb9rba4gqp9qhhr4lak51qosbf3qsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6G0rTqQ6fVR5i4YWj8WD0YKsMb3i3ZiA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116283838274-omvb9rba4gqp9qhhr4lak51qosbf3qsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtFightDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="Fight Date"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txteventname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Event Name"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtEntryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Entry Name"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtprize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Prize"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Score"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ex: Champion / Co-Chamption"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtamountwin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount Won"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorWhite">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtFightCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Heads"
+                android:imeOptions="actionNext"
+                android:textColor="@color/colorWhite"
+                android:textColorLink="@color/colorWhite" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Save"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Cancel"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+
+</ScrollView>
