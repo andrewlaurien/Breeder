@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
 
     String mVerificationId;
-    PhoneAuthProvider.ForceResendingToken mResendToken;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+        PhoneAuthProvider.ForceResendingToken mResendToken;
+        private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private boolean mVerificationInProgress = false;
 
     TextInputLayout txtpasslayout;

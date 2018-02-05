@@ -194,6 +194,15 @@
         </android.support.design.widget.TextInputLayout>
 
 
+        <TableLayout
+            android:id="@+id/tblFight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+        </TableLayout>
+
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"

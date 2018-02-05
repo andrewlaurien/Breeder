@@ -6,12 +6,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import com.google.gson.Gson;
 
@@ -184,6 +192,7 @@ public class CommonFunc {
         final TextInputEditText txtheads = fightDialog.findViewById(R.id.txtFightCount);
         final TextInputEditText txtResult = fightDialog.findViewById(R.id.txtResult);
         final TextInputEditText txtamountwin = fightDialog.findViewById(R.id.txtamountwin);
+        final TableLayout tblFight = fightDialog.findViewById(R.id.tblFight);
 
         if (MainActivity.selectedFight != null) {
             txtdatefight.setText(MainActivity.selectedFight.getFightDate());
@@ -202,6 +211,29 @@ public class CommonFunc {
             @Override
             public void onClick(View view) {
                 CommonFunc.showDatePicker(mcontext, txtdatefight);
+            }
+        });
+
+        txtheads.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                try {
+                    tblFight.removeAllViews();
+                    int num = Integer.parseInt(txtheads.getText().toString());
+                    append(mcontext, tblFight, Integer.parseInt(txtheads.getText().toString()));
+                    Log.i("", num + " is a number");
+                } catch (NumberFormatException e) {
+                    Log.i("", txtheads.getText().toString() + " is not a number");
+                }
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
             }
         });
 
@@ -278,8 +310,8 @@ public class CommonFunc {
 
     }
 
-    public static void showAddCock(final Context mcontext, final int position) {
 
+    public static void showAddCock(final Context mcontext, final int position) {
 
         final GameCock gameCock = new GameCock();
 
@@ -311,7 +343,6 @@ public class CommonFunc {
             }
         });
 
-
         Button btnAdd = (Button) stagDialog.findViewById(R.id.btnSave);
         Button btnCancel = (Button) stagDialog.findViewById(R.id.btnCancel);
 
@@ -322,7 +353,6 @@ public class CommonFunc {
                 stagDialog.dismiss();
             }
         });
-
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -348,6 +378,8 @@ public class CommonFunc {
                     MainActivity.mDataBase.getReference("GameCocks").child(MainActivity.user.getMobile()).child(MainActivity.selectedCock.getWingBand()).setValue(MainActivity.selectedCock);
                 }//.child(MainActivity.selectedCock.getYearBorn())
 
+                MainActivity.setCockList();
+
                 setPreferenceObject(mcontext, MainActivity.myGameCock, "Cock");
                 stagDialog.dismiss();
                 MainActivity.selectedCock = null;
@@ -360,6 +392,52 @@ public class CommonFunc {
 
     }
 
+
+    public static void append(Context mcontext, TableLayout tblFight, int count) {
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mcontext,
+                android.R.layout.simple_list_item_1, MainActivity.GameCockList);
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1f);
+
+        for (int i = 0; i <= count - 1; i++) {
+
+            TableRow tblrow = new TableRow(mcontext);
+
+            tblrow.setPadding(10, 10, 10, 10);
+
+            AutoCompleteTextView meditText = new AutoCompleteTextView(mcontext);
+            Switch mswitch = new Switch(mcontext);
+
+            meditText.setId(i);
+            meditText.setHint("Cock WB");
+            meditText.setPadding(20, 20, 20, 20);
+            meditText.setGravity(Gravity.LEFT);
+            meditText.setHintTextColor(mcontext.getResources().getColor(R.color.colorAccent));
+            meditText.setTextColor(mcontext.getResources().getColor(R.color.colorAccent));
+            meditText.setBackgroundColor(mcontext.getResources().getColor(R.color.colorPrimaryDark));
+            meditText.setLayoutParams(params);
+
+            meditText.setAdapter(adapter);
+
+            mswitch.setId(10 + i);
+            mswitch.setGravity(Gravity.RIGHT);
+            mswitch.setPadding(10, 20, 10, 20);
+            //mswitch.setTextOff("Lose");
+            mswitch.setMinimumWidth(60);
+            //mswitch.setTextOn("Win");
+            mswitch.setText("Result");
+            //mswitch.setShowText(true);
+            mswitch.setTextColor(mcontext.getResources().getColor(R.color.colorAccent));
+            mswitch.setLayoutParams(params);
+
+            tblrow.addView(meditText);
+            tblrow.addView(mswitch);
+            tblFight.addView(tblrow);
+        }
+
+    }
 
     public static void setPreferenceObject(Context c, Object modal, String key) {
         /**** storing object in preferences  ****/

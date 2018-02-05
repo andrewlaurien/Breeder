@@ -19,6 +19,7 @@ public class GameCock {
     private String ParentHenBL;
     private String yearBorn;
     private String fightsWon;
+    private String Status;
 
     public GameCock() {
     }
@@ -120,5 +121,16 @@ public class GameCock {
 
     public void setFightsWon(String fightsWon) {
         this.fightsWon = fightsWon;
+    }
+
+    public String getStatus() {
+        if (Status == null) {
+            return "Active";
+        }
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 }

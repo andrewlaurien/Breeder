@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Breed> myBreed = new ArrayList<Breed>();
     public static ArrayList<Fight> myFights = new ArrayList<Fight>();
     public static ArrayList<GameCock> myGameCock = new ArrayList<>();
+    public static ArrayList<String> GameCockList = new ArrayList<>();
     public static Breed selectedBreed = null;
     public static Fight selectedFight = null;
     public static GameCock selectedCock = null;
     public static FirebaseDatabase mDataBase;
     public static DatabaseReference dbRef;
-    public static User user;
+    public static User user = new User();
     SharedPreferences preferences;
 
     String TAG = "MAINACTIVITY";
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     NavigationView navigationView;
+    TextView tv_userid;
+    TextView tv_name;
 
     @Override
 
@@ -97,8 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivity.myGameCock = (ArrayList<GameCock>) CommonFunc.getPreferenceObjectJson(mcontext, "Cock", typeStag);
 
-        user = (User) CommonFunc.getPreferenceObjectJson(mcontext, "User", User.class);
 
+        //user = (User) CommonFunc.getPreferenceObjectJson(mcontext, "User", User.class);
+
+
+        user.setMobile("639951354943");
 //        Log.d(TAG, user.getMobile());
 
         if (MainActivity.myBreed == null) {
@@ -109,9 +115,10 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.myFights = new ArrayList<>();
         }
 
-        if (MainActivity.myGameCock == null) {
+        if (MainActivity.myGameCock == null)
             MainActivity.myGameCock = new ArrayList<>();
-        }
+        else
+            setCockList();
 
 
         fm = getSupportFragmentManager();
@@ -175,10 +182,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         View header = navigationView.getHeaderView(0);
-        TextView tv_userid = (TextView) header.findViewById(R.id.tv_userid);
-        TextView tv_name = (TextView) header.findViewById(R.id.tv_name);
+        tv_userid = (TextView) header.findViewById(R.id.tv_userid);
+        tv_name = (TextView) header.findViewById(R.id.tv_name);
 
-        tv_name.setText(user.getMobile());
+        setProfile();
 
         View navFooter1 = findViewById(R.id.LogOut);
         navFooter1.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +208,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static void setCockList() {
+
+
+        Log.d("Data", "here1");
+        if (MainActivity.myGameCock.size() != 0)
+            Log.d("Data", "here2");
+        for (int i = 0; i < MainActivity.myGameCock.size(); i++) {
+            GameCock gameCock = MainActivity.myGameCock.get(i);
+            Log.d("Data", "here3");
+            if (gameCock.getStatus() != null) {
+                Log.d("Data", "here4");
+                MainActivity.GameCockList.add(gameCock.getWingBand());
+            }
+        }
+
+    }
 
     public void getData() {
 
@@ -213,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         // do something with the individual "issues"
                         Log.d(TAG, "" + issue.child("phoneNumber").getValue());
-
                     }
                 }
             }
@@ -249,8 +271,6 @@ public class MainActivity extends AppCompatActivity {
                     mainFragment = MainFragment.newInstance("blah", "kah");
                     fm.beginTransaction().replace(R.id.container_main, mainFragment).commit();
                     //}
-
-
                 }
             }
 
@@ -374,5 +394,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setProfile() {
+        if (user != null) {
+            tv_name.setText(user.getMobile());
+        }
     }
 }

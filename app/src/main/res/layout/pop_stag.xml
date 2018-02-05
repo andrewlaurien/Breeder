@@ -23,7 +23,6 @@
                 android:id="@+id/txtwingband"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false"
                 android:hint="Wing Band"
                 android:imeOptions="actionNext"
                 android:textColor="@color/colorWhite"
