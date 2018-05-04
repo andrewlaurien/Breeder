@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
 
     String mVerificationId;
-        PhoneAuthProvider.ForceResendingToken mResendToken;
-        private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    PhoneAuthProvider.ForceResendingToken mResendToken;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private boolean mVerificationInProgress = false;
 
     TextInputLayout txtpasslayout;
@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Invalid request
                     // [START_EXCLUDE]
                     txtmobile.setError("Invalid phone number.");
+                    txtmobile.setError(e.getMessage());
                     // [END_EXCLUDE]
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
@@ -170,23 +171,21 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("Result", "" + CommonFunc.isNumberValid(mobile) + "" + !CommonFunc.isNumberValid(mobile));
 
 
-
-
 //                if(!PhoneNumberUtils.isGlobalPhoneNumber(mobile)){
 //                    showSnakBar("Invalid mobile number");
 //                    return;
 //                }
 
-                if (txtmobile.getText().toString().isEmpty()) {
-                    showSnakBar("Invalid mobile number");
-                    return;
-                }
+//                if (txtmobile.getText().toString().isEmpty()) {
+//                    showSnakBar("Invalid mobile number");
+//                    return;
+//                }
 
 
-                if (!CommonFunc.isNumberValid(mobile)) {
-                    showSnakBar("Invalid mobile number");
-                    return;
-                }
+//                if (!CommonFunc.isNumberValid(mobile)) {
+//                    showSnakBar("Invalid mobile number");
+//                    return;
+//                }
 
                 if (btnLogin.getText().toString().equalsIgnoreCase("login")) {
                     startPhoneNumberVerification(txtmobile.getText().toString());
@@ -316,6 +315,7 @@ public class LoginActivity extends AppCompatActivity {
                 //enableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                 //        mVerificationField);
                 //mDetailText.setText(R.string.status_verification_failed);
+                showSnakBar("Verification Faield. Pleas check your number.");
                 Log.d(TAG, "HERE3");
                 break;
             case STATE_VERIFY_SUCCESS:
@@ -357,9 +357,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("Mobile", txtmobile.getText().toString());
                 //  CommonFunc.setPreferenceObject(mcontext, randomPIN, "VerificationCode");
                 editor.apply();
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
                 User myuser = new User();
                 myuser.setMobile(txtmobile.getText().toString());
@@ -368,6 +366,9 @@ public class LoginActivity extends AppCompatActivity {
                 mDatabase = FirebaseDatabase.getInstance().getReference("Users");
                 mDatabase.child(myuser.getMobile()).child("Profile").setValue(user);
 
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 LoginActivity.this.finish();
 

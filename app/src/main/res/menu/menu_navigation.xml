@@ -10,6 +10,10 @@
         android:id="@+id/analytics"
         android:title="Analytics" />
 
+    <item
+        android:id="@+id/schedule"
+        android:title="Conditioning Schedule" />
+
 
 </menu>
 

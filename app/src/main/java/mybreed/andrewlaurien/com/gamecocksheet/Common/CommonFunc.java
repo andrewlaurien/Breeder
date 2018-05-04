@@ -24,7 +24,10 @@ import android.widget.TableRow;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import mybreed.andrewlaurien.com.gamecocksheet.Fragment.SectionFragment;
 import mybreed.andrewlaurien.com.gamecocksheet.MainActivity;
@@ -75,7 +78,7 @@ public class CommonFunc {
 
         breedDialog = new Dialog(mcontext);
         breedDialog.setCancelable(false);
-        breedDialog.setTitle("New Hatch");
+        //breedDialog.setTitle("New Hatch");
         breedDialog.setContentView(R.layout.pop_breeding);
         breedDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -126,7 +129,6 @@ public class CommonFunc {
 
                 if (MainActivity.selectedBreed == null) {
                     Breed newBreed = new Breed();
-
                     newBreed.setUniqueID(getTimeLong());
                     newBreed.setDateHatched(txtdateHatch.getText().toString());
                     newBreed.setBroodCock(txtBroodCock.getText().toString());
@@ -178,7 +180,7 @@ public class CommonFunc {
 
         fightDialog = new Dialog(mcontext);
         fightDialog.setCancelable(false);
-        fightDialog.setTitle("Fight");
+        //fightDialog.setTitle("Fight");
         fightDialog.setContentView(R.layout.pop__fight);
         fightDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -317,7 +319,7 @@ public class CommonFunc {
 
         stagDialog = new Dialog(mcontext);
         stagDialog.setCancelable(false);
-        stagDialog.setTitle("Add Stag/Cock");
+        //stagDialog.setTitle("Add Stag/Cock");
         stagDialog.setContentView(R.layout.pop_stag);
         stagDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -454,7 +456,6 @@ public class CommonFunc {
 
     //public static <GenericClass> GenericClass getPreferenceObjectJson(Context c, String key, Class<GenericClass> classType) {
 
-
     public static Object getPreferenceObjectJson(Context c, String key, Type classType) {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(c);
@@ -499,6 +500,29 @@ public class CommonFunc {
             if (!Character.isDigit(c)) return false;
         }
         return true;
+    }
+
+
+    public static String getDateOnly(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(date);
+    }
+
+
+    public static Calendar setCalendar(String mdate) {
+        Calendar cal = Calendar.getInstance();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            cal.setTime(sdf.parse(mdate));// all done
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return cal;
+
     }
 
 }

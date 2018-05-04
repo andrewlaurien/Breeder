@@ -103,6 +103,7 @@
                 android:id="@+id/txtDateHatch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 android:hint="Date Hatch"
                 android:imeOptions="actionDone"
                 android:inputType="date"

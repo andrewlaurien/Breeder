@@ -33,6 +33,15 @@
         <activity
             android:name=".Verify"
             android:label="@string/title_activity_verify"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".AddNote"
+            android:label="@string/title_activity_add_note"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NotePreview"
+            android:label="@string/title_activity_note_preview"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

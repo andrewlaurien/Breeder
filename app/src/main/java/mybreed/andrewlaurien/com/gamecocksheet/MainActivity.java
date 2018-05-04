@@ -3,6 +3,7 @@ package mybreed.andrewlaurien.com.gamecocksheet;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.applandeo.materialcalendarview.EventDay;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,11 +34,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import mybreed.andrewlaurien.com.gamecocksheet.Common.CommonFunc;
+import mybreed.andrewlaurien.com.gamecocksheet.DataBase.DBHelper;
 import mybreed.andrewlaurien.com.gamecocksheet.Fragment.AnalyticsFragment;
 import mybreed.andrewlaurien.com.gamecocksheet.Fragment.MainFragment;
+import mybreed.andrewlaurien.com.gamecocksheet.Fragment.ScheduleFragment;
 import mybreed.andrewlaurien.com.gamecocksheet.Model.Breed;
 import mybreed.andrewlaurien.com.gamecocksheet.Model.Fight;
 import mybreed.andrewlaurien.com.gamecocksheet.Model.GameCock;
+import mybreed.andrewlaurien.com.gamecocksheet.Model.MyEventDay;
 import mybreed.andrewlaurien.com.gamecocksheet.Model.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,12 +53,15 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Fight> myFights = new ArrayList<Fight>();
     public static ArrayList<GameCock> myGameCock = new ArrayList<>();
     public static ArrayList<String> GameCockList = new ArrayList<>();
+    public static ArrayList<EventDay> mEventDays = new ArrayList<>();
+    ArrayList<MyEventDay> myList = new ArrayList<>();
     public static Breed selectedBreed = null;
     public static Fight selectedFight = null;
     public static GameCock selectedCock = null;
     public static FirebaseDatabase mDataBase;
     public static DatabaseReference dbRef;
     public static User user = new User();
+    public static DBHelper db = null;
     SharedPreferences preferences;
 
     String TAG = "MAINACTIVITY";
@@ -82,30 +90,32 @@ public class MainActivity extends AppCompatActivity {
         mDataBase = FirebaseDatabase.getInstance();
         dbRef = mDataBase.getReference();
 
+        db = new DBHelper(mcontext);
 
         Type typeOfObjectsList = new TypeToken<ArrayList<Breed>>() {
         }.getType();
 
         MainActivity.myBreed = (ArrayList<Breed>) CommonFunc.getPreferenceObjectJson(mcontext,
                 "Breed", typeOfObjectsList);
-
-
         Type typeFight = new TypeToken<ArrayList<Fight>>() {
         }.getType();
         MainActivity.myFights = (ArrayList<Fight>) CommonFunc.getPreferenceObjectJson(mcontext, "Fight", typeFight);
-
-
         Type typeStag = new TypeToken<ArrayList<GameCock>>() {
         }.getType();
-
         MainActivity.myGameCock = (ArrayList<GameCock>) CommonFunc.getPreferenceObjectJson(mcontext, "Cock", typeStag);
 
+//        myList = (ArrayList<MyEventDay>) CommonFunc.getPreferenceObjectJson(mcontext, "Events", new TypeToken<ArrayList<MyEventDay>>() {
+//        }.getType());
+//
+//        if (myList == null) {
+//            myList = new ArrayList<>();
+//        }
 
-        //user = (User) CommonFunc.getPreferenceObjectJson(mcontext, "User", User.class);
+        setList();
 
 
-        user.setMobile("639951354943");
-//        Log.d(TAG, user.getMobile());
+        user = (User) CommonFunc.getPreferenceObjectJson(mcontext, "User", User.class);
+
 
         if (MainActivity.myBreed == null) {
             MainActivity.myBreed = new ArrayList<>();
@@ -114,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         if (MainActivity.myFights == null) {
             MainActivity.myFights = new ArrayList<>();
         }
+
 
         if (MainActivity.myGameCock == null)
             MainActivity.myGameCock = new ArrayList<>();
@@ -165,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.analytics:
                         fragment = new AnalyticsFragment();
                         break;
+                    case R.id.schedule:
+                        fragment = new ScheduleFragment();
+                        break;
                 }
                 if (fragment != null) {
                     fm.beginTransaction()
@@ -198,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("Breed", "");
                 editor.putString("Fight", "");
                 editor.putString("Cock", "");
+                editor.putString("User", "");
                 editor.apply();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -211,17 +226,40 @@ public class MainActivity extends AppCompatActivity {
     public static void setCockList() {
 
 
-        Log.d("Data", "here1");
         if (MainActivity.myGameCock.size() != 0)
-            Log.d("Data", "here2");
-        for (int i = 0; i < MainActivity.myGameCock.size(); i++) {
-            GameCock gameCock = MainActivity.myGameCock.get(i);
-            Log.d("Data", "here3");
-            if (gameCock.getStatus() != null) {
-                Log.d("Data", "here4");
-                MainActivity.GameCockList.add(gameCock.getWingBand());
+            for (int i = 0; i < MainActivity.myGameCock.size(); i++) {
+                GameCock gameCock = MainActivity.myGameCock.get(i);
+                if (gameCock.getStatus() != null) {
+                    MainActivity.GameCockList.add(gameCock.getWingBand());
+                }
             }
+
+    }
+
+    public void setList() {
+
+//        Log.d("Data", "" + myList.size());
+//        if (myList.size() != 0) {
+//            for (int i = 0; i < myList.size(); i++) {
+//                MyEventDay eventDay = new MyEventDay(myList.get(i).getCalendar(), myList.get(i).getImageResource(), myList.get(i).getNote(), myList.get(i).getDate());
+//                MainActivity.mEventDays.add(eventDay);
+//            }
+//        }
+
+        Cursor c = db.getNotes(db);
+
+        while (c.moveToNext()) {
+
+            Log.d("Date", c.getString(c.getColumnIndex("Date")));
+
+            MyEventDay eventDay = new MyEventDay(
+                    CommonFunc.setCalendar(c.getString(c.getColumnIndex("Date"))),
+                    R.drawable.ic_note,
+                    c.getString(c.getColumnIndex("Note")),
+                    c.getString(c.getColumnIndex("Date")));
+            MainActivity.mEventDays.add(eventDay);
         }
+
 
     }
 
@@ -235,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                     // dataSnapshot is the "issue" node with all children with id 0
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         // do something with the individual "issues"
-                        Log.d(TAG, "" + issue.child("phoneNumber").getValue());
+                        //Log.d(TAG, "" + issue.child("phoneNumber").getValue());
                     }
                 }
             }
@@ -259,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (DataSnapshot child : children) {
                         Fight value = child.getValue(Fight.class);
-                        Log.d(TAG, value.getFightDate());
+                        //Log.d(TAG, value.getFightDate());
                         MainActivity.myFights.add(value);
                     }
 
@@ -295,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (DataSnapshot child : children) {
                         Breed value = child.getValue(Breed.class);
-                        Log.d(TAG, value.getBroodCockWB());
+                        //Log.d(TAG, value.getBroodCockWB());
                         MainActivity.myBreed.add(value);
                     }
 
@@ -331,8 +369,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (DataSnapshot child : children) {
                         GameCock value = child.getValue(GameCock.class);
-                        Log.d(TAG, "" + value.getWingBand()
-                        );
+                        //Log.d(TAG, "" + value.getWingBand());
                         MainActivity.myGameCock.add(value);
                     }
 
@@ -354,6 +391,35 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+//        Query event = mDataBase.getReference("Events").child(MainActivity.user.getMobile());
+//        event.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Log.d(TAG, "" + dataSnapshot.getValue());
+//                if (dataSnapshot.exists()) {
+//
+//                    //Working already but per Year
+//                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+//                    //Log.d(TAG, "key" + dataSnapshot.getKey());
+//
+//
+//                    for (DataSnapshot child : children) {
+//                        Log.d(TAG, "key" + child.getValue());
+//                        MyEventDay value = child.getValue(MyEventDay.class);
+//                        if (value instanceof MyEventDay) {
+//                            MainActivity.mEventDays.add(value);
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
 
