@@ -21,6 +21,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.EventDay;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     TextView tv_userid;
     TextView tv_name;
+    AdView mAdView;
+
 
     @Override
 
@@ -82,13 +87,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
 
         mcontext = this;
+        MobileAds.initialize(this, getResources().getString(R.string.add_mob_id));
         mDataBase = FirebaseDatabase.getInstance();
         dbRef = mDataBase.getReference();
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
 
         db = new DBHelper(mcontext);
 
@@ -104,12 +114,6 @@ public class MainActivity extends AppCompatActivity {
         }.getType();
         MainActivity.myGameCock = (ArrayList<GameCock>) CommonFunc.getPreferenceObjectJson(mcontext, "Cock", typeStag);
 
-//        myList = (ArrayList<MyEventDay>) CommonFunc.getPreferenceObjectJson(mcontext, "Events", new TypeToken<ArrayList<MyEventDay>>() {
-//        }.getType());
-//
-//        if (myList == null) {
-//            myList = new ArrayList<>();
-//        }
 
         setList();
 
@@ -205,22 +209,31 @@ public class MainActivity extends AppCompatActivity {
         navFooter1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mcontext);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("State", "Logout");
-                editor.putString("Breed", "");
-                editor.putString("Fight", "");
-                editor.putString("Cock", "");
-                editor.putString("User", "");
-                editor.apply();
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-                MainActivity.this.finish();
+                logOut();
             }
         });
 
 
+        if (user == null) {
+            logOut();
+        }
+
+
+    }
+
+    public void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mcontext);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("State", "Logout");
+        editor.putString("Breed", "");
+        editor.putString("Fight", "");
+        editor.putString("Cock", "");
+        editor.putString("User", "");
+        editor.apply();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        MainActivity.this.finish();
     }
 
     public static void setCockList() {
@@ -238,13 +251,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setList() {
 
-//        Log.d("Data", "" + myList.size());
-//        if (myList.size() != 0) {
-//            for (int i = 0; i < myList.size(); i++) {
-//                MyEventDay eventDay = new MyEventDay(myList.get(i).getCalendar(), myList.get(i).getImageResource(), myList.get(i).getNote(), myList.get(i).getDate());
-//                MainActivity.mEventDays.add(eventDay);
-//            }
-//        }
 
         Cursor c = db.getNotes(db);
 
@@ -264,6 +270,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getData() {
+
+        Log.d("Here", "Here");
 
         Query query = mDataBase.getReference("Users").child(MainActivity.user.getMobile());
         query.addListenerForSingleValueEvent(new ValueEventListener() {

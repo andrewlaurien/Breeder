@@ -8,16 +8,16 @@
     tools:context="mybreed.andrewlaurien.com.gamecocksheet.NotePreview"
     tools:showIn="@layout/activity_note_preview">
 
-    <!--<TextView-->
-    <!--android:id="@+id/note"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="16dp"-->
-    <!--android:hint="No note"-->
-    <!--android:textSize="24sp"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <TextView
+    android:id="@+id/note"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:hint="No note"
+    android:textSize="24sp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"

@@ -150,10 +150,8 @@ public class LoginActivity extends AppCompatActivity {
                 mVerificationId = verificationId;
                 mResendToken = token;
 
-                // [START_EXCLUDE]
-                // Update UI
                 updateUI(STATE_CODE_SENT);
-                // [END_EXCLUDE]
+
             }
         };
         // [END phone_auth_callbacks]
@@ -164,28 +162,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Toast.makeText(getBaseContext(), txtmobile.getText().toString() + "====" + CommonFunc.isNumberValid(txtmobile.getText().toString()), Toast.LENGTH_SHORT).show();
-                String mobile = txtmobile.getText().toString();
-
+                  String mobile = txtmobile.getText().toString();
 
                 Log.d("Result", "" + CommonFunc.isNumberValid(mobile) + "" + !CommonFunc.isNumberValid(mobile));
-
-
-//                if(!PhoneNumberUtils.isGlobalPhoneNumber(mobile)){
-//                    showSnakBar("Invalid mobile number");
-//                    return;
-//                }
-
-//                if (txtmobile.getText().toString().isEmpty()) {
-//                    showSnakBar("Invalid mobile number");
-//                    return;
-//                }
-
-
-//                if (!CommonFunc.isNumberValid(mobile)) {
-//                    showSnakBar("Invalid mobile number");
-//                    return;
-//                }
 
                 if (btnLogin.getText().toString().equalsIgnoreCase("login")) {
                     startPhoneNumberVerification(txtmobile.getText().toString());

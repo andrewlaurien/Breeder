@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+
+import java.util.Date;
 
 import mybreed.andrewlaurien.com.gamecocksheet.AddNote;
 import mybreed.andrewlaurien.com.gamecocksheet.Common.CommonFunc;
@@ -49,7 +50,17 @@ public class ScheduleFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Date date = new Date();
+
         mCalendarView = view.findViewById(R.id.calendarView);
+
+        try {
+            mCalendarView.setDate(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +102,7 @@ public class ScheduleFragment extends Fragment {
                 CommonFunc.setPreferenceObject(getContext(), MainActivity.mEventDays, "Events");
                 MainActivity.mDataBase.getReference("Events").child(MainActivity.user.getMobile()).setValue(MainActivity.mEventDays);
 
-                MainActivity.db.saveNote(MainActivity.db,myEventDay);
+                MainActivity.db.saveNote(MainActivity.db, myEventDay);
                 setEventList();
             }
         }
