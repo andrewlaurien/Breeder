@@ -6,14 +6,18 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +51,7 @@ import mybreed.andrewlaurien.com.gamecocksheet.Model.GameCock;
 import mybreed.andrewlaurien.com.gamecocksheet.Model.MyEventDay;
 import mybreed.andrewlaurien.com.gamecocksheet.Model.User;
 
+@SuppressWarnings("unchecked")
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fm;
@@ -89,13 +94,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         mcontext = this;
-        MobileAds.initialize(this, getResources().getString(R.string.add_mob_id));
+        //MobileAds.initialize(this, getResources().getString(R.string.add_mob_id));
         mDataBase = FirebaseDatabase.getInstance();
         dbRef = mDataBase.getReference();
 
         mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//
+
+//        mAdView.setAdSize(AdSize.BANNER);
+//        mAdView.setAdUnitId("ca-app-pub-3749753055066187/4500673013");
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
 
 

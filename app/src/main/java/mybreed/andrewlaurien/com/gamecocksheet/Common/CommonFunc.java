@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TextInputEditText;
+import com.google.android.material.textfield.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -488,7 +488,7 @@ public class CommonFunc {
     }
 
     public static boolean isNumberValid(String number) {
-        return number.matches("63[0-9]{10}");
+        return number.matches("\\+63[0-9]{10}");
     }
 
     public static String getYear(String date) {

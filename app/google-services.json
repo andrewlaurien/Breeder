@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "116283838274-fggumekcqo3oo31vu0mb5ssghcgdotle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mybreed.andrewlaurien.com.gamecocksheet",
+            "certificate_hash": "9156a811c5d4af111fd3daa282d3553c6fc9d386"
+          }
+        },
+        {
+          "client_id": "116283838274-2bpiaiq1bq3q554gkampnsk5grbbed24.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mybreed.andrewlaurien.com.gamecocksheet",
+            "certificate_hash": "84d8a4db3c421cce5533178183f156d17af91194"
+          }
+        },
+        {
+          "client_id": "116283838274-qej75o8vqqps6damqpnhrah1qo8b8h56.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mybreed.andrewlaurien.com.gamecocksheet",
+            "certificate_hash": "efa330778d8326142cad4c4afd721ab9d48deba5"
+          }
+        },
+        {
           "client_id": "116283838274-6grquv20as4m6cu6s9uptn9i7ek8v5mr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -33,22 +57,16 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "116283838274-omvb9rba4gqp9qhhr4lak51qosbf3qsf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-3749753055066187~3466267600"
     }
   ],
   "configuration_version": "1"

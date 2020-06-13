@@ -64,27 +64,6 @@ public class WebRequest {
         // generate a 4 digit integer 1000 <10000
         final int randomPIN = (int) (Math.random() * 9000) + 1000;
 
-
-//        String url = "https://rest.nexmo.com/sms/json?api_key=77662b88&api_secret=701f9173ffad389d&from=MobileBreeder&to="
-//                + mobilenum
-//                + "&text="
-//                + randomPIN + "";
-//        Log.d("String", "" + randomPIN + "");
-//        Log.d("URI", url);
-
-
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//
-//                Log.d("result", response);
-//
-//                try {
-//                    JSONObject object = new JSONObject(response);
-//                    JSONArray array = object.getJSONArray("messages");
-//                    String status = array.getJSONObject(0).getString("status");
-//                    if (status.equals("0")) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mcontext);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("State", "Verification");
@@ -111,23 +90,7 @@ public class WebRequest {
         if (mcontext instanceof LoginActivity) {
             ((LoginActivity) mcontext).finish();
         }
-//                    } else {
-//                        Toast.makeText(mcontext, "Cannot send verification code. Please inform the Developer.", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//
-//        requestQueue.add(stringRequest);
+
 
 
     }
